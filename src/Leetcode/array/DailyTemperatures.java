@@ -3,6 +3,8 @@
  */
 package Leetcode.array;
 
+import java.util.Stack;
+
 public class DailyTemperatures
 {
     public int[] dailyTemperatures(int[] temperatures)
@@ -35,5 +37,28 @@ public class DailyTemperatures
             }
         }
         return temperatures;
+    }
+
+    public int[] dailyTemperaturesUsingStack(int[] temperatures)
+    {
+        int[] resultantArray = new int[temperatures.length];
+
+        Stack<Integer> descendingStack = new Stack<>();
+        int currentIndex;
+
+        for (int i=0; i<temperatures.length;)
+        {
+            if(descendingStack.isEmpty() || temperatures[descendingStack.peek()] >= temperatures[i])
+            {
+                descendingStack.push(i++);
+            }
+            else
+            {
+                currentIndex = descendingStack.pop();
+                resultantArray[currentIndex] = i - currentIndex;
+            }
+        }
+
+        return resultantArray;
     }
 }
